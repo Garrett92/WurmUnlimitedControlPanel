@@ -1,0 +1,20 @@
+#custom_table {
+	display: block; 
+	width: 100%;
+	padding: 0px;
+}
+
+#custom_table td {
+	display: inline-block; 
+	padding: 10px;
+}
+
+.g-table {
+  display: table;
+}
+.g-table-row {
+  display: table-row;
+}
+.g-table-cell {
+  display: table-cell;
+}
