@@ -43,7 +43,13 @@
 								$c = 0;
 								$save = array();
                                 $villageArray = getAllVillages();
-                                sort($villageArray);
+                                
+                                function sortByName($a, $b) {
+                                	return ($a[1] > $b[1]);
+                                }
+                                
+                                usort($villageArray, 'sortByName');
+                                
                                 foreach ($villageArray as $village) {
                                 	if (isset($_POST["search"])) {
                                 		if (($_POST["search"] != '') && strpos(strtolower($village[1]), strtolower($_POST["search"])) === FALSE) {
@@ -74,6 +80,7 @@
                                     	$onDblClick = "";
                                     	$clToLoad = "";
                                     }
+                                    $shortName = strlen($village[1]) > 9 ? substr($village[1],0,9)."-" : $village[1];
                                     $savedVillage = '<td><form action="" method="post">'.$hiddenForm.'<center>'.
                                         '<button type="button" class="btn ' . $buttonColor . ' " '.$onDblClick.' data-html="true" data-toggle="popover" '.
                                         'title="<center><b>' . $village[1] . '</b></center>" data-placement="bottom" data-trigger="focus" '.
@@ -89,7 +96,7 @@
                                         $citizenCount . 
                                         '</div></div></div>'.
                                         $clToLoad . '">'.
-                                        '<i class="fa '.$buttonIcon.' fa-4x"></i></button><br><small><b>' . $village[1] . '</b></small></center></form></td>';
+                                        '<i class="fa '.$buttonIcon.' fa-4x"></i></button><br><small><b>' . $shortName . '</b></small></center></form></td>';
                                     
                                         array_push($save, $savedVillage);
                                 }

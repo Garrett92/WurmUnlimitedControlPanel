@@ -31,23 +31,29 @@
 				<?php 
 				
 				$getLogs = getLogs();
-				foreach($getLogs as $k => $v) {
-					echo("<a href='?load=" . $v . "'>" . $v . "</a><br>");
-				}
+				if (!empty($getLogs)) {
 				
-				if (isset($_GET["load"])) {
-					echo("<br><pre>");
-					$fh = fopen('logs/'.$_GET["load"],'r');
-					while ($line = fgets($fh)) {
-						$steamIDfound = get_string_between($line, "{", "}");
-						if ($steamIDfound != "") {
-							echo("<a href='?load=" . $_GET["load"] . "&steamlookup=" . $steamIDfound . "'>" . $line . "</a>");
-						} else {
-							echo($line);
-						}
+					foreach($getLogs as $k => $v) {
+						echo("<a href='?load=" . $v . "'>" . $v . "</a><br>");
 					}
-					echo("</pre>");
-					fclose($fh);
+					
+					if (isset($_GET["load"])) {
+						echo("<br><pre>");
+						$fh = fopen('logs/'.$_GET["load"],'r');
+						while ($line = fgets($fh)) {
+							$steamIDfound = get_string_between($line, "{", "}");
+							if ($steamIDfound != "") {
+								echo("<a href='?load=" . $_GET["load"] . "&steamlookup=" . $steamIDfound . "'>" . $line . "</a>");
+							} else {
+								echo($line);
+							}
+						}
+						echo("</pre>");
+						fclose($fh);
+					}
+				
+				} else {
+					echo("No log files have been created!");
 				}
 				
 				?>

@@ -1,14 +1,14 @@
 <?php 
 
 //load user config options
-require 'config.php';
+require 'includes/config.php';
 
 //load steamauth scripts for steam login authentication
-require 'steamauth/steamauth.php';
+require 'includes/steamauth/steamauth.php';
 
 //kick user to login page if they are not logged in & $requireSteamLogin=true
 if(!isset($_SESSION['steamid']) && $requireSteamLogin) {
-	header('Location: ../login.php');
+	header('Location: login.php');
 	exit;
 }
 
@@ -33,7 +33,9 @@ function getLogs() {
 		$count++;
 	}
 	
-	return $return;
+	if (isset($return)) {
+		return $return;
+	}
 }
 
 function dailyLog($logInfo) {
